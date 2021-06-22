@@ -4,14 +4,13 @@
 import random
 
 while True:
-    #winner = ''
     user_choice = ''
 
     computer_choice = random.randint(0, 2) # Computer has 3 game choices.
     choices = ['rock', 'paper', 'scissors']
     computer_choice = random.choice(choices)
 
-    print('Welcome to Roshambo!\n')
+    print('\nWelcome to Roshambo!\n')
     user_choice = input('Choose your weapon: rock, paper, or scissors? ')
     print(f"You chose {user_choice}. The computer chose {computer_choice}.\n")
 
