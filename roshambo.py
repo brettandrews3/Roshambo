@@ -24,14 +24,16 @@ def get_user_choice():
 def get_user_choice():
     choices = [f'{action.name}[{action.value}]' for action in Action]
     choices_str = ', '.join(choices)
-    choice = int(input(f'Enter a choice ({choices_str}): '))
-    action = Action(choice)
+    user_choice = int(input(f'Enter a choice ({choices_str}): '))
+    action = Action(user_choice)
     return action
 #TODO: Comment through each step of this interpolation function.
 
 # Computer generates comp_choice using random.randint and scalable class Action:
-def get_computer_choice():
-    comp_choice = random.randint(0, len(Action) -1)
+def get_comp_choice():
+    comp_choice = random.randint(0, len(Action) -1) # Action counts from 0, len() counts from 1.
     action = Action(comp_choice)
     return action
 #TODO: Comment through each step of this function.
+
+def decide_winner(user_action, comp
