@@ -1,6 +1,5 @@
-# Starting over to test out enumeration as a simplified way
-# to generate responses. This should make for cleaner code than the main
-# branch's version.
+# Starting over to test out enumeration as a simplified way to generate responses.
+# See the README file in this program's repo for a detailed description of each code block.
 
 import random
 from enum import IntEnum
@@ -10,13 +9,6 @@ class Action(IntEnum):
     Paper = 1
     Scissors =2
 
-"""# Player input, option 1 - verbose:
-def get_user_choice():
-    user_choice = input("Enter your choice of rock[0], paper[1], or scissors[2]: ")
-    choice = int(user_choice)
-    action = Action(choice)
-    return action              # Take user input, convert to int, then convert int to class Action.
-"""
 print("Welcome to Roshambo!\n")
 
 # Player input, option 2 - list comprehension:
@@ -59,7 +51,7 @@ while True:
         user_action = get_user_choice()
     except ValueError as e:
         range_str = f"[0, {len(Action) -1}]"
-        print(f"Invalid choice. Enter a value in range {range_str}.")
+        print(f"Invalid choice. Enter a value in range {range_str}.\n")
         continue
 
     comp_action = get_comp_choice()
