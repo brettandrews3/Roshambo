@@ -36,4 +36,21 @@ def get_comp_choice():
     return action
 #TODO: Comment through each step of this function.
 
-def decide_winner(user_action, comp
+def decide_winner(user_action, comp_action):
+    if user_action == comp_action:
+        print(f"You both chose {user_choice.name}. It's a tie!")
+    elif user_action == Action.Rock:
+        if comp_action == Action.Scissors:
+            print("Rock smashes scissors. You win!")
+        else:
+            print("Paper covers rock! The computer wins.")
+    elif user_action == Action.Paper:
+        if comp_action == Action.Rock:
+            print("Paper covers rock. You win the round!")
+        else:
+            print("Scissors cut paper! The computer wins.")
+    elif user_action == Action.Scissors:
+        if comp_action == Action.Paper:
+            print("Scissors cut paper. You win the round!")
+        else:
+            print("Rock smashes scissors. The computer wins.")
