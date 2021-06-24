@@ -10,8 +10,6 @@ class Action(IntEnum):
     Paper = 1
     Scissors =2
 
-print("Welcome to Roshambo!")
-
 """# Player input, option 1 - verbose:
 def get_user_choice():
     user_choice = input("Enter your choice of rock[0], paper[1], or scissors[2]: ")
@@ -19,6 +17,7 @@ def get_user_choice():
     action = Action(choice)
     return action              # Take user input, convert to int, then convert int to class Action.
 """
+print("Welcome to Roshambo!\n")
 
 # Player input, option 2 - list comprehension:
 def get_user_choice():
@@ -38,19 +37,35 @@ def get_comp_choice():
 
 def decide_winner(user_choice, comp_choice):
     if user_choice == comp_choice:
-        print(f"You both chose {user_choice.name}. It's a tie!")
+        print(f"You both chose {user_choice.name}. It's a tie!\n")
     elif user_choice == Action.Rock:
         if comp_choice == Action.Scissors:
-            print("Rock smashes scissors. You win!")
+            print("Rock smashes scissors. You win!\n")
         else:
-            print("Paper covers rock! The computer wins.")
+            print("Paper covers rock! The computer wins.\n")
     elif user_choice == Action.Paper:
         if comp_choice == Action.Rock:
-            print("Paper covers rock. You win the round!")
+            print("Paper covers rock. You win the round!\n")
         else:
-            print("Scissors cut paper! The computer wins.")
+            print("Scissors cut paper! The computer wins.\n")
     elif user_choice == Action.Scissors:
         if comp_choice == Action.Paper:
-            print("Scissors cut paper. You win the round!")
+            print("Scissors cut paper. You win the round!\n")
         else:
-            print("Rock smashes scissors. The computer wins.")
+            print("Rock smashes scissors. The computer wins.\n")
+
+while True:
+    try:
+        user_action = get_user_choice()
+    except ValueError as e:
+        range_str = f"[0, {len(Action) -1}]"
+        print(f"Invalid choice. Enter a value in range {range_str}.")
+        continue
+
+    comp_action = get_comp_choice()
+    decide_winner(user_action, comp_action)
+
+    play_again = input("Play again? (y/n): ")
+    if play_again.lower() != 'y':
+        print("Thanks for playing Roshambo!")
+        break
