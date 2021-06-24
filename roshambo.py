@@ -11,21 +11,19 @@ class Action(IntEnum):
 
 print("Welcome to Roshambo!\n")
 
-# Player input, option 2 - list comprehension:
+# Player input, using list comprehension to select from expandable class Action():
 def get_user_choice():
     choices = [f'{action.name}[{action.value}]' for action in Action]
     choices_str = ', '.join(choices)
     user_choice = int(input(f'Enter a choice ({choices_str}): '))
     action = Action(user_choice)
     return action
-#TODO: Comment through each step of this interpolation function.
 
 # Computer generates comp_choice using random.randint and scalable class Action:
 def get_comp_choice():
     comp_choice = random.randint(0, len(Action) -1) # Action counts from 0, len() counts from 1.
     action = Action(comp_choice)
     return action
-#TODO: Comment through each step of this function.
 
 def decide_winner(user_choice, comp_choice):
     if user_choice == comp_choice:
