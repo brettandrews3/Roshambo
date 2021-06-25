@@ -11,6 +11,12 @@ class Action(IntEnum):
     Paper = 1
     Scissors =2
 
+# Here's the scoring variables. Since the rest of the code is function definitions and calls, I figured that
+# declaring numeric variables up here with the IntEnum data made sense. I could probably shift the scores into 
+# IntEnum, too, but they work just fine as integers here.
+user_score = 0
+comp_score = 0
+tie_score = 0
 
 print("Welcome to Roshambo!\n") 
 
@@ -39,24 +45,37 @@ def get_comp_choice():
 ### two-condition process for each rock/paper/scissors combination: if you account for ties, you can only win or lose in other
 ### combinations. This would expand if I apply the 'Rock Paper Scissors Lizard Spock' rules mentioned earlier. Nevertheless,
 ### the elif-if-else pockets for each entry keep the code clean.
+### The '_score' variables must be declared global within the function to work. Why?  ¯\_(ツ)_/¯
+
 def decide_winner(user_choice, comp_choice):
+    global user_score        
+    global comp_score
+    global tie_score
+    
     if user_choice == comp_choice:
         print(f"You both chose {user_choice.name}. It's a tie!\n")
+        tie_score += 1
     elif user_choice == Action.Rock:
         if comp_choice == Action.Scissors:
             print("Rock smashes scissors. You win!\n")
+            user_score += 1
         else:
             print("Paper covers rock! The computer wins.\n")
+            comp_score += 1
     elif user_choice == Action.Paper:
         if comp_choice == Action.Rock:
             print("Paper covers rock. You win the round!\n")
+            user_score += 1
         else:
             print("Scissors cut paper! The computer wins.\n")
+            comp_score += 1
     elif user_choice == Action.Scissors:
         if comp_choice == Action.Paper:
             print("Scissors cut paper. You win the round!\n")
+            user_score += 1
         else:
             print("Rock smashes scissors. The computer wins.\n")
+            comp_score += 1
 
 ### With the rules established above, the while loop is responsible for executing the game.
 ### The setup is simple: while True (game is running), the program tries to get the user_choice as defined above.
@@ -68,8 +87,8 @@ def decide_winner(user_choice, comp_choice):
 ### Finally, the play_again input lets the user decide whether to play again or end the game. The "if play_again.lower() != 'y'"
 ### line allows for either 'Y' or 'y' input from the user without the complications of defining additional Regex responses.
 ### If the user decides not to continue, the program gives a 'Thanks for playing!' message and ends. 
-
-### I would like to add a score counter to the program at some point. I'll come back and enter that code in this README if that happens.
+### 6/25/2021: I added that scoring system mentioned in the previous version of this README. The print(f'Score...') displays
+### the running tally after each round.
 
 while True:
     try:
@@ -81,6 +100,8 @@ while True:
     
     comp_action = get_comp_choice()
     decide_winner(user_action, comp_action)
+    
+    print(f'Score: User {user_score}, Computer {comp_score}, Ties {tie_score}\n')
     
     play_again = input("Play again? (y/n): ")
     if play_again.lower() != 'y':
