@@ -7,7 +7,12 @@ from enum import IntEnum
 class Action(IntEnum):
     Rock = 0
     Paper = 1
-    Scissors =2
+    Scissors = 2
+
+# Declare the score variables here:
+user_score = 0
+comp_score = 0
+tie_score = 0
 
 print("Welcome to Roshambo!\n")
 
@@ -26,23 +31,35 @@ def get_comp_choice():
     return action
 
 def decide_winner(user_choice, comp_choice):
+    # The two _score vars must be declared global within the function. Why?  ¯\_(ツ)_/¯
+    global user_score
+    global comp_score
+    global tie_score
+
     if user_choice == comp_choice:
         print(f"You both chose {user_choice.name}. It's a tie!\n")
+        tie_score += 1
     elif user_choice == Action.Rock:
         if comp_choice == Action.Scissors:
             print("Rock smashes scissors. You win!\n")
+            user_score += 1
         else:
             print("Paper covers rock! The computer wins.\n")
+            comp_score += 1
     elif user_choice == Action.Paper:
         if comp_choice == Action.Rock:
             print("Paper covers rock. You win the round!\n")
+            user_score += 1
         else:
             print("Scissors cut paper! The computer wins.\n")
+            comp_score += 1
     elif user_choice == Action.Scissors:
         if comp_choice == Action.Paper:
             print("Scissors cut paper. You win the round!\n")
+            user_score += 1
         else:
             print("Rock smashes scissors. The computer wins.\n")
+            comp_score += 1
 
 while True:
     try:
@@ -54,6 +71,8 @@ while True:
 
     comp_action = get_comp_choice()
     decide_winner(user_action, comp_action)
+
+    print(f'Score: User {user_score}, Computer {comp_score}, Ties {tie_score}\n')
 
     play_again = input("Play again? (y/n): ")
     if play_again.lower() != 'y':
