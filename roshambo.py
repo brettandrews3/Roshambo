@@ -1,7 +1,7 @@
 # Starting over to test out enumeration as a simplified way to generate responses.
 # See the README file in this program's repo for a detailed description of each code block.
 
-import random
+import random, time
 from enum import IntEnum
 
 class Action(IntEnum):
@@ -14,13 +14,14 @@ user_score = 0
 comp_score = 0
 tie_score = 0
 
-print("Welcome to Roshambo!\n")
+#Get the user's name and use it during the program:
+user_name = input("Welcome to Roshambo! Let's get started.\nFirst, what's your name?\n")
 
 # Player input, using list comprehension to select from expandable class Action():
 def get_user_choice():
     choices = [f'{action.name}[{action.value}]' for action in Action]
     choices_str = ', '.join(choices)
-    user_choice = int(input(f'Enter a choice ({choices_str}): '))
+    user_choice = int(input(f'{user_name}, enter a choice ({choices_str}): '))
     action = Action(user_choice)
     return action
 
@@ -30,8 +31,9 @@ def get_comp_choice():
     action = Action(comp_choice)
     return action
 
+# Define how the winner is decided. Using int instead of string simplifies scoring scenarios:
 def decide_winner(user_choice, comp_choice):
-    # The two _score vars must be declared global within the function. Why?  ¯\_(ツ)_/¯
+    # The three _score vars must be declared 'global' within the function. Why?  ¯\_(ツ)_/¯
     global user_score
     global comp_score
     global tie_score
@@ -41,26 +43,27 @@ def decide_winner(user_choice, comp_choice):
         tie_score += 1
     elif user_choice == Action.Rock:
         if comp_choice == Action.Scissors:
-            print("Rock smashes scissors. You win!\n")
+            print("Rock smashes scissors. {user_name} wins!\n")
             user_score += 1
         else:
             print("Paper covers rock! The computer wins.\n")
             comp_score += 1
     elif user_choice == Action.Paper:
         if comp_choice == Action.Rock:
-            print("Paper covers rock. You win the round!\n")
+            print("Paper covers rock. {user_name} wins!\n")
             user_score += 1
         else:
             print("Scissors cut paper! The computer wins.\n")
             comp_score += 1
     elif user_choice == Action.Scissors:
         if comp_choice == Action.Paper:
-            print("Scissors cut paper. You win the round!\n")
+            print("Scissors cut paper. {user_name} wins!\n")
             user_score += 1
         else:
             print("Rock smashes scissors. The computer wins.\n")
             comp_score += 1
 
+# Here's the while loop that runs the game and allows the user to keep playing:
 while True:
     try:
         user_action = get_user_choice()
@@ -72,9 +75,11 @@ while True:
     comp_action = get_comp_choice()
     decide_winner(user_action, comp_action)
 
-    print(f'Score: User {user_score}, Computer {comp_score}, Ties {tie_score}\n')
+    print(f'Score: {user_name} {user_score}, Computer {comp_score}, Ties {tie_score}\n')
 
     play_again = input("Play again? (y/n): ")
+    time.sleep(1)
     if play_again.lower() != 'y':
         print("Thanks for playing Roshambo!")
+        time.sleep
         break
