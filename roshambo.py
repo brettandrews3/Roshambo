@@ -81,5 +81,5 @@ while True:
     time.sleep(1)
     if play_again.lower() != 'y':
         print("Thanks for playing Roshambo!")
-        time.sleep
+        time.sleep(1)
         break
